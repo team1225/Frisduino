@@ -1,26 +1,27 @@
-# All-Terrain
-Arduino + Xbox + All Terrain Drive = Awesome
+# Gorilla Frisduino
+Arduino + Xbox + 2014 Frisbee Robots = Gorilla Frisduino
 
 ## Project Info
-- Arduino controlled robot for demos
-- Will eventually host module attachments
+- Arduino controlled frizbee robot for demos
+- Removes need for CRio and Pre-2015 DriverStation
 
 ## Status
-- Chassis [##--------]
-  - [x] Gearboxes and wheels
-  - [ ] Aluminum frame
-  - [ ] Electronics bay
-  - [ ] Battery slots
-  - [ ] Lexan protective covering
-  - [ ] Water resistance
-- Programming [###-------]
+- [ ] Programming
   - [x] Xbox input working
-  - [ ] Motor controller abstraction not started
-  - [ ] DiffDrive abstraction not started
-  - [ ] Control forwarding not started
+  - [ ] Motor controller abstraction
+    - [x] Relay
+    - [ ] PWM
+  - [ ] Arcade Drive abstraction
+- [ ] Rewiring (After feature parody)
+  - [ ] Remove CRio and other legacy components
+  - [ ] Strip existing wiring
+  - [ ] Reorganize existing components
+  - [ ] Install new components
+  - [ ] NEATLY rewire
+- [ ] Demo!
 
 ## Development
-- [PlatformIO](https://platformio.org/platformio-ide) (IDE or Core + [VIM](vim.org))
+- [PlatformIO](https://platformio.org/platformio-ide) on [VS Code](https://code.visualstudio.com)
   - Using libraries:
     - USB-Host-Shield-20 (id=59)
   - On platforms:
@@ -31,7 +32,4 @@ Arduino + Xbox + All Terrain Drive = Awesome
 - USB Host Sheild
 - Wireless Xbox Adapter
 - Xbox 360 Controller
-- 6 12v PWM motor controllers (Victors)
-- Power Distribution Board (FRC pre-2015 PDP)
-- 6 Drive motors, gear boxes, and wheels
-- Aluminum/Lexan Chassis
+- Our 2014 robot, sans CRio
