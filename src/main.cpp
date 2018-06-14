@@ -1,9 +1,7 @@
 #include <Arduino.h>
 #include <XBOXRECV.h>
 #include "RelayMotor.h"
-
-#define AIM_UP 7
-#define AIM_DOWN 8
+#include "Map.h"
 
 USB Usb;
 XBOXRECV Xbox(&Usb);
@@ -25,7 +23,7 @@ void loop() {
 			if (Xbox.Xbox360Connected[i]) {
 
 				if (Xbox.getButtonPress(L1, i)) {
-					 aim.Set(Direction::Bwd);
+					aim.Set(Direction::Bwd);
 				}
 				else if (Xbox.getButtonPress(R1, i)) {
 					aim.Set(Direction::Fwd);
