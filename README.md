@@ -24,6 +24,7 @@ Arduino + Xbox + 2014 Frisbee Robots = Gorilla Frisduino
 - [PlatformIO](https://platformio.org/platformio-ide) on [VS Code](https://code.visualstudio.com)
   - Using libraries:
     - USB-Host-Shield-20 (id=59)
+    - Timer (id=75)
   - On platforms:
     - Arduino Uno
 
