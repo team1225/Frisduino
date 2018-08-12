@@ -39,6 +39,18 @@ void loop()
         } else {
             aim.Set(Direction::Stop);
         }
+
+        if (Xbox.getButtonPress(A, 0)) {
+            firingAction.Go();
+        } else {
+            firingAction.Off();
+        }
+
+        if (Xbox.getButtonPress(B, 0)) {
+            acceleratingRail.Go();
+        } else {
+            acceleratingRail.Off();
+        }
     }
     else {
         // Receiver not connected
