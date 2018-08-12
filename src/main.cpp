@@ -1,28 +1,27 @@
+#include <Arduino.h>
+#include <XBOXRECV.h>
+#include <Timer.h>
+
 #include "Map.h"
 #include "RelayMotor.h"
 #include "OneWayMotor.h"
-#include <Arduino.h>
-#include <Timer.h>
-#include <XBOXRECV.h>
 
 USB Usb;
 XBOXRECV Xbox(&Usb);
 
-RelayMotor aim(AIM_UP, AIM_DOWN);
+RelayMotor aim(PIN_AIM_UP, PIN_AIM_DOWN);
 OneWayMotor firingAction(PIN_FIRING_ACTION);
 OneWayMotor acceleratingRail(PIN_ACCELERATING_RAIL);
 
 void setup()
 {
     if (Usb.Init() == -1) {
-        while (1)
-            ; // halt
+        while (1); // halt
     }
 }
 
 void loop()
 {
-    // put your main code here, to run repeatedly:
     Usb.Task();
 
     /*
@@ -44,5 +43,7 @@ void loop()
     else {
         // Receiver not connected
         aim.Off();
+        firingAction.Off();
+        acceleratingRail.Off();
     }
 }
