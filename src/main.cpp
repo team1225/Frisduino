@@ -22,20 +22,23 @@ void loop()
     // put your main code here, to run repeatedly:
     Usb.Task();
 
-    if (Xbox.XboxReceiverConnected) {
-        for (uint8_t i = 0; i < 4; i++) {
-            if (Xbox.Xbox360Connected[i]) {
+    /*
+     * The XBOXRECV Library supports up to 4 controllers, but we only use the first,
+     * check controller connection with Xbox.Xbox360Connected[0] and
+     * use 0 as the last argument when querying input
+     */
 
-                if (Xbox.getButtonPress(L1, i)) {
-                    aim.Set(Direction::Bwd);
-                } else if (Xbox.getButtonPress(R1, i)) {
-                    aim.Set(Direction::Fwd);
-                } else {
-                    aim.Set(Direction::Stop);
-                }
-            }
+    if (Xbox.Xbox360Connected[0]) {
+
+        if (Xbox.getButtonPress(L1, 0)) {
+            aim.Set(Direction::Bwd);
+        } else if (Xbox.getButtonPress(R1, 0)) {
+            aim.Set(Direction::Fwd);
+        } else {
+            aim.Set(Direction::Stop);
         }
-    } else {
+    }
+    else {
         // Receiver not connected
         aim.Off();
     }
