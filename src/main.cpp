@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "RelayMotor.h"
+#include "OneWayMotor.h"
 #include <Arduino.h>
 #include <Timer.h>
 #include <XBOXRECV.h>
@@ -8,6 +9,8 @@ USB Usb;
 XBOXRECV Xbox(&Usb);
 
 RelayMotor aim(AIM_UP, AIM_DOWN);
+OneWayMotor firingAction(PIN_FIRING_ACTION);
+OneWayMotor acceleratingRail(PIN_ACCELERATING_RAIL);
 
 void setup()
 {
