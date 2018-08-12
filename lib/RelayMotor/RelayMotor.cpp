@@ -11,6 +11,8 @@ RelayMotor::RelayMotor(int pin_fwd, int pin_bwd) {
 }
 
 RelayMotor::~RelayMotor() {
+        digitalWrite(m_pin_fwd, LOW);
+        digitalWrite(m_pin_bwd, LOW);
 }
 
 void RelayMotor::Set(Direction newDirection) {

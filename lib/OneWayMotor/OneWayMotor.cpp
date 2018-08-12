@@ -8,6 +8,7 @@ OneWayMotor::OneWayMotor(int pin_fwd) {
 }
 
 OneWayMotor::~OneWayMotor() {
+        digitalWrite(m_pin_fwd, LOW);
 }
 
 void OneWayMotor::Go() {
