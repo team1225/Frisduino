@@ -9,15 +9,27 @@
 USB Usb;
 XBOXRECV Xbox(&Usb);
 
+Timer timer;
+int8_t timer_id_safety;
+
 RelayMotor aim(PIN_AIM_UP, PIN_AIM_DOWN);
 OneWayMotor firingAction(PIN_FIRING_ACTION);
 OneWayMotor acceleratingRail(PIN_ACCELERATING_RAIL);
 
 void setup()
 {
+    pinMode(PIN_SAFETY_LIGHT, OUTPUT);
+    digitalWrite(PIN_SAFETY_LIGHT, HIGH); // Turn on the safety LED to tell users that the robot is on, but disconnected
+
     if (Usb.Init() == -1) {
-        while (1); // halt
+        while (1); // halt execution without a USB board or device
     }
+
+    while (!(Xbox.Xbox360Connected[0])) {
+        delay(500); // Wait half-second incriments until the controller connects
+    }
+
+    timer_id_safety = timer.oscillate(PIN_SAFETY_LIGHT, PERIOD_SAFETY_LIGHT, HIGH); // Blink safety LED to alert users the robot is active
 }
 
 void loop()
@@ -45,5 +57,7 @@ void loop()
         aim.Off();
         firingAction.Off();
         acceleratingRail.Off();
+        timer.stop(timer_id_safety);
+        while (1); // halt execution when the controller disconnects, restart the arduino to continue
     }
 }
