@@ -60,4 +60,6 @@ void loop()
         timer.stop(timer_id_safety);
         while (1); // halt execution when the controller disconnects, restart the arduino to continue
     }
+
+    timer.update(); // Run timer events
 }
