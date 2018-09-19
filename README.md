@@ -13,11 +13,11 @@ Arduino + Xbox + 2014 Frisbee Robots = Gorilla Frisduino
     - [ ] PWM
   - [ ] Arcade Drive abstraction
 - [ ] Rewiring (After feature parody)
-  - [ ] Remove CRio and other legacy components
-  - [ ] Strip existing wiring
-  - [ ] Reorganize existing components
-  - [ ] Install new components
-  - [ ] NEATLY rewire
+  - [x] Remove CRio and other legacy components
+  - [x] Strip existing wiring
+  - [x] Reorganize existing components
+  - [x] Install new components
+  - [x] NEATLY rewire
 - [ ] Demo!
 
 ## Development
