@@ -10,7 +10,8 @@ USB Usb;
 XBOXRECV Xbox(&Usb);
 
 Timer timer;
-int8_t timer_id_safety;
+int8_t timer_id_safety = -1;
+int8_t timer_id_fire_delay = -1;
 
 RelayMotor aim(PIN_AIM_UP, PIN_AIM_DOWN);
 OneWayMotor firingAction(PIN_FIRING_ACTION);
@@ -32,6 +33,10 @@ void setup()
     timer_id_safety = timer.oscillate(PIN_SAFETY_LIGHT, PERIOD_SAFETY_LIGHT, HIGH); // Blink safety LED to alert users the robot is active
 }
 
+// decalire fire() and finish(), defined below loop()
+extern void fire();
+extern void finish();
+
 void loop()
 {
     Usb.Task();
@@ -51,9 +56,32 @@ void loop()
         } else {
             aim.Set(Direction::Stop);
         }
+
+        if (Xbox.getButtonPress(A, 0)) {
+            if (timer_id_fire_delay == -1) {
+                // timer is not running
+                acceleratingRail.Go();
+                timer_id_fire_delay = timer.after(PERIOD_FIRE_DELAY, fire);
+            }
+            // else, timer is running and command held, do nothing
+        } else if (timer_id_fire_delay != -1) {
+            // button dropped within fire_delay, stop
+            acceleratingRail.Stop();
+            timer.stop(timer_id_fire_delay);
+            timer_id_fire_delay = -1;
+        }
     }
     else {
         // Receiver not connected
+        if (timer_id_safety != -1) {
+            timer.stop(timer_id_safety);
+            timer_id_safety = -1;
+        }
+        digitalWrite(PIN_SAFETY_LIGHT, HIGH);
+        if (timer_id_fire_delay != -1) {
+            timer.stop(timer_id_fire_delay);
+            timer_id_fire_delay = -1;
+        }
         aim.Off();
         firingAction.Off();
         acceleratingRail.Off();
@@ -62,4 +90,16 @@ void loop()
     }
 
     timer.update(); // Run timer events
+}
+
+
+void fire() {
+    firingAction.Go();
+    timer_id_fire_delay = -1;
+    timer.after(PERIOD_FINISH_DELAY, finish);
+}
+
+void finish() {
+    firingAction.Stop();
+    acceleratingRail.Stop();
 }
